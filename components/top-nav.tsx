@@ -18,7 +18,6 @@ export function TopNav({
   const searchParams = useSearchParams();
 
   const activeLang = searchParams.get('lang') || currentLang;
-
   const isHome = pathname === '/';
 
   return (
@@ -29,7 +28,8 @@ export function TopNav({
             <span className="etnLiveDot" />
             <span className="etnBreakingLabel">LIVE</span>
             <span className="etnBreakingText">
-              Breaking stories, politics, business, sports, cinema and world updates.
+              Breaking stories, politics, business, sports, cinema and world
+              updates.
             </span>
           </div>
 
@@ -37,7 +37,6 @@ export function TopNav({
             <span className="etnEdition">
               EDITION: {currentLang.toUpperCase()}
             </span>
-
             <LangSwitcher currentLang={currentLang} />
           </div>
         </div>

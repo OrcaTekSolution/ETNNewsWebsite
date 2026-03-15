@@ -14,9 +14,12 @@ export function Footer() {
             </div>
 
             <p className="etnFooterIntro">
-              ETN News is powered by the same backend used by your ETN mobile and
-              admin applications. Any story published through the admin app will
-              automatically appear on the website in real time.
+              ETN (Erithazhal News) is a digital news platform developed by Orcatek Solutions, delivering fast, reliable, and verified news to audiences across the globe.
+
+Our mission is to bring breaking news, politics, business, sports, technology, and regional stories to readers in real time through our mobile app and website.We believe in responsible journalism that informs, educates, and empowers society with factual reporting.
+
+“Journalism is printing what someone else does not want printed; everything else is public relations.”
+— George Orwell
             </p>
 
             <div className="etnFooterTagRow">
