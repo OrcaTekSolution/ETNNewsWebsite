@@ -8,6 +8,7 @@ export function normalizeLang(value?: string | null): LanguageCode {
 
 export function formatDate(value?: string | null, lang: LanguageCode = 'en') {
   if (!value) return 'Updated recently';
+
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return 'Updated recently';
 
@@ -36,8 +37,10 @@ export function excerpt(
   max = 180
 ) {
   const raw = stripHtml(post.short_description || post.content || '');
+
   if (!raw) return 'Tap to read the full story on ETN News.';
   if (raw.length <= max) return raw;
+
   return `${raw.slice(0, max).trim()}...`;
 }
 

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { LanguageCode, NewsPost } from '@/lib/types';
 import { excerpt, formatDate, getNewsImage } from '@/lib/utils';
 
-type WebsiteNewsPost = NewsPost & {
+type NewsPostWithWebsite = NewsPost & {
   website_url?: string | null;
 };
 
@@ -13,12 +13,16 @@ type HeroSectionProps = {
 };
 
 export function HeroSection({ posts, lang }: HeroSectionProps) {
-  const websitePosts = posts.filter((post): post is WebsiteNewsPost => {
+  const websitePosts = posts.filter((post) => {
+    const typedPost = post as NewsPostWithWebsite;
+
     const hasWebsiteImage =
-      typeof post.image_website === 'string' && post.image_website.trim() !== '';
+      typeof typedPost.image_website === 'string' &&
+      typedPost.image_website.trim() !== '';
 
     const hasWebsiteUrl =
-      typeof post.website_url === 'string' && post.website_url.trim() !== '';
+      typeof typedPost.website_url === 'string' &&
+      typedPost.website_url.trim() !== '';
 
     return hasWebsiteImage || hasWebsiteUrl;
   });
