@@ -2,6 +2,7 @@ import { Footer } from '@/components/footer';
 import { HeroSection } from '@/components/hero-section';
 import { NewsCard } from '@/components/news-card';
 import { TopNav } from '@/components/top-nav';
+import AdsenseAd from '@/components/adsense-ad';
 import { getCategories, getNews } from '@/lib/api';
 import { NewsPost } from '@/lib/types';
 import { normalizeLang } from '@/lib/utils';
@@ -112,6 +113,15 @@ export default async function Home({ searchParams }: PageProps) {
             </section>
           )}
 
+          <div style={{ margin: '0 0 36px' }}>
+            <AdsenseAd
+              adSlot="YOUR_AD_SLOT_ID"
+              style={{
+                minHeight: '100px',
+                padding: '12px 0',
+              }}
+            />
+          </div>
 
           {featuredPosts.length > 0 ? (
             <section className="sectionBlock" style={{ marginBottom: '36px' }}>
@@ -179,6 +189,16 @@ export default async function Home({ searchParams }: PageProps) {
               </div>
             </section>
           ) : null}
+
+          <div style={{ margin: '0 0 36px' }}>
+            <AdsenseAd
+              adSlot="YOUR_AD_SLOT_ID"
+              style={{
+                minHeight: '100px',
+                padding: '12px 0',
+              }}
+            />
+          </div>
 
           <section className="sectionBlock">
             <div className="sectionHeader">
@@ -274,6 +294,16 @@ export default async function Home({ searchParams }: PageProps) {
               </div>
             )}
           </section>
+
+          <div style={{ margin: '36px 0 0' }}>
+            <AdsenseAd
+              adSlot="YOUR_AD_SLOT_ID"
+              style={{
+                minHeight: '100px',
+                padding: '12px 0',
+              }}
+            />
+          </div>
 
           {morePosts.length > 0 ? (
             <section className="sectionBlock" style={{ marginTop: '36px' }}>

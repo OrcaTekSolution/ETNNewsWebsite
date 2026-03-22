@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import AdsenseAd from '@/components/adsense-ad';
 import { LanguageCode, NewsPost } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
 
@@ -47,6 +48,16 @@ export function NewsDetail({
         </div>
       </header>
 
+      <div style={{ margin: '20px 0 8px' }}>
+        <AdsenseAd
+          adSlot="YOUR_AD_SLOT_ID"
+          style={{
+            minHeight: '100px',
+            padding: '12px 0',
+          }}
+        />
+      </div>
+
       {post.image_url ? (
         <div className="etnArticleHeroMedia">
           <div className="etnArticleImageWrap">
@@ -72,6 +83,16 @@ export function NewsDetail({
                 `<p>${post.short_description || 'Full story available on ETN News.'}</p>`,
             }}
           />
+
+          <div style={{ margin: '28px 0' }}>
+            <AdsenseAd
+              adSlot="YOUR_AD_SLOT_ID"
+              style={{
+                minHeight: '100px',
+                padding: '12px 0',
+              }}
+            />
+          </div>
 
           <section className="etnReactionPanel">
             <div className="etnReactionBox">
