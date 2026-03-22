@@ -1,5 +1,5 @@
 import './globals.css';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 
 export const metadata: Metadata = {
@@ -24,13 +24,18 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <head>
-        {/* Google AdSense */}
         <Script
           id="adsense-script"
           async
@@ -39,7 +44,6 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-
       <body>{children}</body>
     </html>
   );

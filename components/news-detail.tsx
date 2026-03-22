@@ -34,7 +34,7 @@ export function NewsDetail({
           </div>
 
           {sourceHref ? (
-            <div style={{ marginTop: '18px' }}>
+            <div className="etnArticleSourceWrap">
               <a
                 href={sourceHref}
                 target="_blank"
@@ -48,7 +48,7 @@ export function NewsDetail({
         </div>
       </header>
 
-      <div style={{ margin: '20px 0 8px' }}>
+      <div className="etnArticleTopAd">
         <AdsenseAd
           adSlot="YOUR_AD_SLOT_ID"
           style={{
@@ -66,7 +66,7 @@ export function NewsDetail({
               alt={post.title}
               fill
               className="etnArticleImage"
-              sizes="100vw"
+              sizes="(max-width: 768px) 100vw, 900px"
               priority
             />
           </div>
@@ -84,7 +84,7 @@ export function NewsDetail({
             }}
           />
 
-          <div style={{ margin: '28px 0' }}>
+          <div className="etnArticleMidAd">
             <AdsenseAd
               adSlot="YOUR_AD_SLOT_ID"
               style={{
