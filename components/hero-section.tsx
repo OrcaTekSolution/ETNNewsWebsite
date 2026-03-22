@@ -5,6 +5,7 @@ import { excerpt, formatDate, getNewsImage } from '@/lib/utils';
 
 type NewsPostWithWebsite = NewsPost & {
   website_url?: string | null;
+  image_website?: string | null;
 };
 
 type HeroSectionProps = {
@@ -12,27 +13,45 @@ type HeroSectionProps = {
   lang: LanguageCode;
 };
 
+function isWebsiteReady(post: NewsPost) {
+  const typedPost = post as NewsPostWithWebsite;
+
+  const hasWebsiteImage =
+    typeof typedPost.image_website === 'string' &&
+    typedPost.image_website.trim() !== '';
+
+  const hasWebsiteUrl =
+    typeof typedPost.website_url === 'string' &&
+    typedPost.website_url.trim() !== '';
+
+  return hasWebsiteImage || hasWebsiteUrl;
+}
+
+function buildPreferredPosts(posts: NewsPost[]) {
+  const preferred = posts.filter(isWebsiteReady);
+  const fallback = posts.filter((post) => !isWebsiteReady(post));
+
+  const merged: NewsPost[] = [];
+  const seen = new Set<number>();
+
+  for (const post of [...preferred, ...fallback]) {
+    if (!seen.has(post.id)) {
+      seen.add(post.id);
+      merged.push(post);
+    }
+  }
+
+  return merged;
+}
+
 export function HeroSection({ posts, lang }: HeroSectionProps) {
-  const websitePosts = posts.filter((post) => {
-    const typedPost = post as NewsPostWithWebsite;
+  const heroPosts = buildPreferredPosts(posts);
+  const lead = heroPosts[0];
 
-    const hasWebsiteImage =
-      typeof typedPost.image_website === 'string' &&
-      typedPost.image_website.trim() !== '';
+  if (!lead) return null;
 
-    const hasWebsiteUrl =
-      typeof typedPost.website_url === 'string' &&
-      typedPost.website_url.trim() !== '';
-
-    return hasWebsiteImage || hasWebsiteUrl;
-  });
-
-  if (!websitePosts.length) return null;
-
-  const [lead, ...rest] = websitePosts;
-
-  const sidebarPosts = rest.slice(0, 3);
-  const bottomPosts = rest.slice(3, 6);
+  const sidebarPosts = heroPosts.slice(1, 4);
+  const bottomPosts = heroPosts.slice(4, 7);
 
   const leadImage = getNewsImage(lead);
 
@@ -53,7 +72,6 @@ export function HeroSection({ posts, lang }: HeroSectionProps) {
                 priority
                 sizes="(max-width: 1024px) 100vw, 64vw"
               />
-
               <div className="etnHeroLeadOverlay" />
             </Link>
 
@@ -127,39 +145,53 @@ export function HeroSection({ posts, lang }: HeroSectionProps) {
           </div>
 
           <div className="etnHeroSidebarList">
-            {sidebarPosts.map((post, index) => {
-              const sideImage = getNewsImage(post);
+            {sidebarPosts.length > 0 ? (
+              sidebarPosts.map((post, index) => {
+                const sideImage = getNewsImage(post);
 
-              return (
-                <Link
-                  href={`/news/${post.id}?lang=${lang}`}
-                  key={post.id}
-                  className="etnHeroSideCard"
+                return (
+                  <Link
+                    href={`/news/${post.id}?lang=${lang}`}
+                    key={post.id}
+                    className="etnHeroSideCard"
+                  >
+                    <div className="etnHeroSideThumbWrap">
+                      <Image
+                        src={sideImage}
+                        alt={post.title}
+                        fill
+                        className="etnHeroSideThumb"
+                        sizes="(max-width: 1024px) 30vw, 180px"
+                        priority={index < 2}
+                      />
+                    </div>
+
+                    <div className="etnHeroSideContent">
+                      <span className="etnHeroSideCategory">
+                        {post.category_name || 'News'}
+                      </span>
+                      <h3>{post.title}</h3>
+                      <p>{excerpt(post, 88)}</p>
+                      <span className="etnHeroSideDate">
+                        {formatDate(post.published_at || post.created_at, lang)}
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })
+            ) : (
+              <div className="etnHeroSidebarEmpty">
+                <p
+                  style={{
+                    margin: 0,
+                    color: 'rgba(16,32,51,0.65)',
+                    lineHeight: 1.6,
+                  }}
                 >
-                  <div className="etnHeroSideThumbWrap">
-                    <Image
-                      src={sideImage}
-                      alt={post.title}
-                      fill
-                      className="etnHeroSideThumb"
-                      sizes="(max-width: 1024px) 30vw, 180px"
-                      priority={index < 2}
-                    />
-                  </div>
-
-                  <div className="etnHeroSideContent">
-                    <span className="etnHeroSideCategory">
-                      {post.category_name || 'News'}
-                    </span>
-                    <h3>{post.title}</h3>
-                    <p>{excerpt(post, 88)}</p>
-                    <span className="etnHeroSideDate">
-                      {formatDate(post.published_at || post.created_at, lang)}
-                    </span>
-                  </div>
-                </Link>
-              );
-            })}
+                  No additional headlines available right now.
+                </p>
+              </div>
+            )}
           </div>
         </aside>
       </div>

@@ -92,6 +92,20 @@ function normalizeFeedResponse(
   };
 }
 
+function mergeUniquePosts(primary: NewsPost[], fallback: NewsPost[]): NewsPost[] {
+  const merged: NewsPost[] = [];
+  const seen = new Set<number>();
+
+  for (const item of [...primary, ...fallback]) {
+    if (!seen.has(item.id)) {
+      seen.add(item.id);
+      merged.push(item);
+    }
+  }
+
+  return merged;
+}
+
 export async function getCategories(): Promise<Category[]> {
   try {
     const data = await fetchJson<Category[]>('/categories');
@@ -103,13 +117,13 @@ export async function getCategories(): Promise<Category[]> {
 }
 
 /**
- * Website-only strategy:
- * 1. Fetch latest published items from API
- * 2. Try filtering only last N days (default 3)
- * 3. If filtered result has items -> use that
- * 4. If filtered result is empty -> fallback to latest available items
+ * Website feed strategy:
+ * 1. Fetch more items than needed
+ * 2. Prefer recent items from the last N days
+ * 3. Backfill with older items if recent items are not enough
+ * 4. Always return up to requested limit without duplicates
  *
- * This prevents empty homepage/category/search pages when no news was added recently.
+ * This prevents empty or sparse homepage/category/search sections.
  */
 export async function getNews(params: {
   categoryId?: number;
@@ -123,9 +137,8 @@ export async function getNews(params: {
     const page = params.page ?? 1;
     const finalLimit = params.limit ?? 24;
 
-    // Fetch more than needed so website can filter recent items
-    // and still have enough items after filtering.
-    const requestLimit = Math.max(finalLimit * 3, 50);
+    // Fetch extra so recent-filtering still leaves enough items
+    const requestLimit = Math.max(finalLimit * 4, 80);
 
     const data = await fetchJson<FeedResponse>('/news', {
       category: params.categoryId,
@@ -139,22 +152,14 @@ export async function getNews(params: {
     const allItems = normalized.items;
     const recentItems = filterRecentNews(allItems, params.days ?? 3);
 
-    // Primary: recent news only
-    if (recentItems.length > 0) {
-      return {
-        page,
-        limit: finalLimit,
-        total: recentItems.length,
-        items: recentItems.slice(0, finalLimit),
-      };
-    }
+    // Prefer recent items first, then fill remaining slots with older items
+    const mergedItems = mergeUniquePosts(recentItems, allItems);
 
-    // Fallback: latest available news from API response
     return {
       page,
       limit: finalLimit,
-      total: allItems.length,
-      items: allItems.slice(0, finalLimit),
+      total: mergedItems.length,
+      items: mergedItems.slice(0, finalLimit),
     };
   } catch (error) {
     console.error('getNews failed:', error);
@@ -167,7 +172,10 @@ export async function getNews(params: {
   }
 }
 
-export async function getNewsById(id: number, lang?: string): Promise<NewsPost> {
+export async function getNewsById(
+  id: number,
+  lang?: string
+): Promise<NewsPost> {
   return fetchJson<NewsPost>(`/news/${id}`, {
     lang: normalizeLang(lang),
   });
