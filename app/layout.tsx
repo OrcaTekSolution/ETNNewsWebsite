@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'ETN News',
     description:
-      'ETN News website powered by the same ETN admin/backend used by the mobile app.',
+      'Erithazhal News website powered by the same ETN used by the mobile app.',
   },
 };
 
@@ -30,21 +30,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Google AdSense */}
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"
+          id="adsense-script"
+          async
           strategy="afterInteractive"
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5102546518342948"
+          crossOrigin="anonymous"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-XXXXXXXXXX', {
-              page_path: window.location.pathname,
-            });
-          `}
-        </Script>
       </head>
+
       <body>{children}</body>
     </html>
   );
