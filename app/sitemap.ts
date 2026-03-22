@@ -1,12 +1,26 @@
-import type { MetadataRoute } from 'next'
+import type { MetadataRoute } from "next";
+
+const BASE_URL = "https://erithazhal.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: 'https://erithazhal.com',
+      url: BASE_URL,
       lastModified: new Date(),
-      changeFrequency: 'hourly',
+      changeFrequency: "hourly",
       priority: 1,
     },
-  ]
+    {
+      url: `${BASE_URL}/category`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/search`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.5,
+    },
+  ];
 }
