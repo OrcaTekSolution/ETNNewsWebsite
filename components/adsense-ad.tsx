@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { CSSProperties, useEffect, useRef } from 'react';
 
 declare global {
   interface Window {
@@ -12,7 +12,7 @@ type AdsenseAdProps = {
   adSlot: string;
   adFormat?: 'auto' | 'fluid' | 'rectangle' | 'vertical' | 'horizontal';
   fullWidthResponsive?: boolean;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   className?: string;
 };
 
@@ -23,11 +23,17 @@ export default function AdsenseAd({
   style,
   className,
 }: AdsenseAdProps) {
+  const adRef = useRef<HTMLModElement | null>(null);
+  const initializedRef = useRef(false);
+
   useEffect(() => {
+    if (initializedRef.current) return;
+    if (typeof window === 'undefined') return;
+    if (!adRef.current) return;
+
     try {
-      if (typeof window !== 'undefined') {
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-      }
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+      initializedRef.current = true;
     } catch (error) {
       console.error('AdSense error:', error);
     }
@@ -44,6 +50,7 @@ export default function AdsenseAd({
       }}
     >
       <ins
+        ref={adRef}
         className="adsbygoogle"
         style={{ display: 'block' }}
         data-ad-client="ca-pub-5102546518342948"

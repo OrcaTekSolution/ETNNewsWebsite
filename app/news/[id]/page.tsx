@@ -2,6 +2,7 @@ import { Footer } from '@/components/footer';
 import { NewsCard } from '@/components/news-card';
 import { NewsDetail } from '@/components/news-detail';
 import { TopNav } from '@/components/top-nav';
+import AdsenseAd from '@/components/adsense-ad';
 import {
   getCategories,
   getCurrentBaseUrl,
@@ -15,6 +16,10 @@ type PageProps = {
   params: Promise<{ id: string }>;
   searchParams: Promise<{ lang?: string }>;
 };
+
+const ARTICLE_TOP_SLOT = '2139640491';
+const ARTICLE_MID_SLOT = '2496398563';
+const ARTICLE_BOTTOM_SLOT = '2488659709';
 
 export async function generateMetadata({
   params,
@@ -82,7 +87,27 @@ export default async function NewsDetailPage({
         <div className="container">
           <section className="newsDetailLayout">
             <div className="newsDetailMain">
+              <div style={{ margin: '0 0 24px' }}>
+                <AdsenseAd
+                  adSlot={ARTICLE_TOP_SLOT}
+                  style={{
+                    minHeight: '100px',
+                    padding: '12px 0',
+                  }}
+                />
+              </div>
+
               <NewsDetail post={post} lang={currentLang} />
+
+              <div style={{ margin: '24px 0 0' }}>
+                <AdsenseAd
+                  adSlot={ARTICLE_MID_SLOT}
+                  style={{
+                    minHeight: '100px',
+                    padding: '12px 0',
+                  }}
+                />
+              </div>
 
               {bottomPosts.length > 0 ? (
                 <section className="newsDetailMoreSection">
@@ -114,6 +139,16 @@ export default async function NewsDetailPage({
                   </div>
                 </section>
               ) : null}
+
+              <div style={{ margin: '32px 0 0' }}>
+                <AdsenseAd
+                  adSlot={ARTICLE_BOTTOM_SLOT}
+                  style={{
+                    minHeight: '100px',
+                    padding: '12px 0',
+                  }}
+                />
+              </div>
             </div>
 
             <aside className="newsDetailSidebar sidebarBlock">
@@ -124,8 +159,7 @@ export default async function NewsDetailPage({
                   <h3 className="newsDetailSidebarTitle">More on ETN</h3>
 
                   <p className="newsDetailSidebarText">
-                    Fresh stories from the ETN live feed, pulled from the same
-                    backend as your admin and mobile apps.
+                    Fresh stories from the ETN live feed.
                   </p>
                 </div>
 

@@ -1,12 +1,15 @@
 import { Footer } from '@/components/footer';
 import { NewsCard } from '@/components/news-card';
 import { TopNav } from '@/components/top-nav';
+import AdsenseAd from '@/components/adsense-ad';
 import { getCategories, getNews } from '@/lib/api';
 import { normalizeLang } from '@/lib/utils';
 
 type PageProps = {
   searchParams: Promise<{ q?: string; lang?: string }>;
 };
+
+const SEARCH_MID_SLOT = '1310742150';
 
 export default async function SearchPage({ searchParams }: PageProps) {
   const { q, lang } = await searchParams;
@@ -194,6 +197,16 @@ export default async function SearchPage({ searchParams }: PageProps) {
               </div>
             ) : (
               <>
+                <div style={{ margin: '0 0 24px' }}>
+                  <AdsenseAd
+                    adSlot={SEARCH_MID_SLOT}
+                    style={{
+                      minHeight: '100px',
+                      padding: '12px 0',
+                    }}
+                  />
+                </div>
+
                 <section style={{ marginBottom: '18px' }}>
                   <div
                     style={{

@@ -1,6 +1,7 @@
 import { Footer } from '@/components/footer';
 import { NewsCard } from '@/components/news-card';
 import { TopNav } from '@/components/top-nav';
+import AdsenseAd from '@/components/adsense-ad';
 import { getCategories, getNews } from '@/lib/api';
 import { normalizeLang } from '@/lib/utils';
 
@@ -8,6 +9,9 @@ type PageProps = {
   params: Promise<{ id: string }>;
   searchParams: Promise<{ lang?: string }>;
 };
+
+const CATEGORY_TOP_SLOT = '2057414861';
+const CATEGORY_MID_SLOT = '1310742150';
 
 export default async function CategoryPage({
   params,
@@ -98,6 +102,16 @@ export default async function CategoryPage({
                 used by your ETN mobile app and admin app, so content published
                 in the admin panel automatically appears on the website.
               </p>
+            </div>
+
+            <div style={{ margin: '0 0 32px' }}>
+              <AdsenseAd
+                adSlot={CATEGORY_TOP_SLOT}
+                style={{
+                  minHeight: '100px',
+                  padding: '12px 0',
+                }}
+              />
             </div>
 
             {posts.length === 0 ? (
@@ -279,6 +293,16 @@ export default async function CategoryPage({
                     </div>
                   </div>
                 </section>
+
+                <div style={{ margin: '0 0 34px' }}>
+                  <AdsenseAd
+                    adSlot={CATEGORY_MID_SLOT}
+                    style={{
+                      minHeight: '100px',
+                      padding: '12px 0',
+                    }}
+                  />
+                </div>
 
                 <section style={{ marginBottom: '34px' }}>
                   <div

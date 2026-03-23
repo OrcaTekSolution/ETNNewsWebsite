@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Footer } from '@/components/footer';
 import { HeroSection } from '@/components/hero-section';
 import { NewsCard } from '@/components/news-card';
@@ -12,6 +13,10 @@ type PageProps = {
 };
 
 const TARGET_POSTS = 30;
+
+const HOME_TOP_SLOT = '2057414861';
+const HOME_MID_SLOT = '1310742150';
+const HOME_BOTTOM_SLOT = '4492006510';
 
 export default async function Home({ searchParams }: PageProps) {
   const { lang } = await searchParams;
@@ -106,16 +111,27 @@ export default async function Home({ searchParams }: PageProps) {
                   fontSize: '1rem',
                 }}
               >
-                Your ETN website is connected directly to the same backend as
-                your mobile app and admin app. When stories are published from
-                the admin panel, they will automatically appear here.
+                Your ETN website is connected directly to your mobile app{' '}
+                <Link
+                  href="https://play.google.com/store/apps/details?id=com.orcatek.etnnews"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    color: '#0f4c81',
+                    fontWeight: 700,
+                    textDecoration: 'underline',
+                  }}
+                >
+                  ETN News on Google Play
+                </Link>
+                .
               </p>
             </section>
           )}
 
           <div style={{ margin: '0 0 36px' }}>
             <AdsenseAd
-              adSlot="YOUR_AD_SLOT_ID"
+              adSlot={HOME_TOP_SLOT}
               style={{
                 minHeight: '100px',
                 padding: '12px 0',
@@ -123,60 +139,8 @@ export default async function Home({ searchParams }: PageProps) {
             />
           </div>
 
-          {featuredPosts.length > 0 ? (
+          {featuredPosts.length > 0 && (
             <section className="sectionBlock" style={{ marginBottom: '36px' }}>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  gap: '16px',
-                  flexWrap: 'wrap',
-                  marginBottom: '18px',
-                }}
-              >
-                <div>
-                  <span
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      padding: '6px 12px',
-                      borderRadius: '999px',
-                      background: 'rgba(15,76,129,0.08)',
-                      color: '#0f4c81',
-                      fontSize: '12px',
-                      fontWeight: 800,
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.08em',
-                      marginBottom: '10px',
-                    }}
-                  >
-                    Editor Picks
-                  </span>
-
-                  <h2
-                    style={{
-                      margin: 0,
-                      fontSize: '1.5rem',
-                      fontWeight: 900,
-                      letterSpacing: '-0.03em',
-                      color: '#102033',
-                    }}
-                  >
-                    Featured Coverage
-                  </h2>
-                </div>
-
-                <span
-                  style={{
-                    color: '#7a8da3',
-                    fontSize: '0.95rem',
-                  }}
-                >
-                  Curated from the ETN live feed
-                </span>
-              </div>
-
               <div className="newsGrid">
                 {featuredPosts.map((post, index) => (
                   <NewsCard
@@ -188,11 +152,11 @@ export default async function Home({ searchParams }: PageProps) {
                 ))}
               </div>
             </section>
-          ) : null}
+          )}
 
           <div style={{ margin: '0 0 36px' }}>
             <AdsenseAd
-              adSlot="YOUR_AD_SLOT_ID"
+              adSlot={HOME_MID_SLOT}
               style={{
                 minHeight: '100px',
                 padding: '12px 0',
@@ -201,54 +165,7 @@ export default async function Home({ searchParams }: PageProps) {
           </div>
 
           <section className="sectionBlock">
-            <div className="sectionHeader">
-              <div>
-                <span
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    padding: '6px 12px',
-                    borderRadius: '999px',
-                    background: 'rgba(220,38,38,0.10)',
-                    color: '#d62828',
-                    fontSize: '12px',
-                    fontWeight: 800,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.08em',
-                    marginBottom: '10px',
-                  }}
-                >
-                  Latest Updates
-                </span>
-
-                <h2
-                  style={{
-                    margin: 0,
-                    fontSize: '1.6rem',
-                    fontWeight: 900,
-                    letterSpacing: '-0.03em',
-                    color: '#102033',
-                  }}
-                >
-                  Latest ETN Stories
-                </h2>
-              </div>
-
-              <p
-                style={{
-                  margin: 0,
-                  maxWidth: '760px',
-                  color: '#5b6b7f',
-                  lineHeight: 1.75,
-                }}
-              >
-                Every story here comes directly from your ETN backend, so
-                anything posted in the admin app is reflected on the website
-                automatically.
-              </p>
-            </div>
-
-            {latestPosts.length > 0 ? (
+            {latestPosts.length > 0 && (
               <div className="newsGrid">
                 {latestPosts.map((post, index) => (
                   <NewsCard
@@ -259,45 +176,12 @@ export default async function Home({ searchParams }: PageProps) {
                   />
                 ))}
               </div>
-            ) : (
-              <div
-                style={{
-                  border: '1px solid rgba(16,32,51,0.08)',
-                  borderRadius: '24px',
-                  padding: '40px 24px',
-                  textAlign: 'center',
-                  background:
-                    'linear-gradient(180deg, rgba(255,255,255,0.96), rgba(244,248,252,0.96))',
-                }}
-              >
-                <h3
-                  style={{
-                    margin: 0,
-                    fontSize: '1.35rem',
-                    fontWeight: 800,
-                    color: '#102033',
-                  }}
-                >
-                  No latest stories yet
-                </h3>
-                <p
-                  style={{
-                    margin: '10px auto 0',
-                    maxWidth: '700px',
-                    color: '#5b6b7f',
-                    lineHeight: 1.75,
-                  }}
-                >
-                  Once articles are published from the ETN admin app, they will
-                  start appearing here automatically.
-                </p>
-              </div>
             )}
           </section>
 
           <div style={{ margin: '36px 0 0' }}>
             <AdsenseAd
-              adSlot="YOUR_AD_SLOT_ID"
+              adSlot={HOME_BOTTOM_SLOT}
               style={{
                 minHeight: '100px',
                 padding: '12px 0',
@@ -305,40 +189,8 @@ export default async function Home({ searchParams }: PageProps) {
             />
           </div>
 
-          {morePosts.length > 0 ? (
+          {morePosts.length > 0 && (
             <section className="sectionBlock" style={{ marginTop: '36px' }}>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  gap: '16px',
-                  flexWrap: 'wrap',
-                  marginBottom: '18px',
-                }}
-              >
-                <h2
-                  style={{
-                    margin: 0,
-                    fontSize: '1.4rem',
-                    fontWeight: 900,
-                    letterSpacing: '-0.02em',
-                    color: '#102033',
-                  }}
-                >
-                  More from ETN
-                </h2>
-
-                <span
-                  style={{
-                    color: '#7a8da3',
-                    fontSize: '0.94rem',
-                  }}
-                >
-                  Real-time website sync enabled
-                </span>
-              </div>
-
               <div className="newsGrid">
                 {morePosts.map((post, index) => (
                   <NewsCard
@@ -350,7 +202,7 @@ export default async function Home({ searchParams }: PageProps) {
                 ))}
               </div>
             </section>
-          ) : null}
+          )}
         </div>
       </main>
 
