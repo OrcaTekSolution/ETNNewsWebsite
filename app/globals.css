@@ -1862,3 +1862,35 @@ select {
     font-size: 0.94rem;
   }
 }
+.etnMarketsLinks {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 14px;
+  flex-shrink: 0;
+}
+
+.etnMarketButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  text-decoration: none;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 4px 12px rgba(15, 44, 80, 0.18);
+}
+
+.etnMarketButtonEt {
+  background: linear-gradient(135deg, #0f4c81, #1d5f99);
+}
+
+.etnMarketButtonBt {
+  background: linear-gradient(135deg, #0f9d58, #22b36b);
+}

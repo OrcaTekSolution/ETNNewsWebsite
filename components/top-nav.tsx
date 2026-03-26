@@ -6,6 +6,9 @@ import { Category, LanguageCode } from '@/lib/types';
 import { EtnLogo } from './etn-logo';
 import { LangSwitcher } from './lang-switcher';
 
+const ET_NOW_MARKETS_URL = 'https://www.etnownews.com/markets';
+const BUSINESS_TODAY_MARKETS_URL = 'https://www.businesstoday.in/markets';
+
 export function TopNav({
   categories,
   currentLang,
@@ -28,14 +31,33 @@ export function TopNav({
             <span className="etnLiveDot" />
             <span className="etnBreakingLabel">LIVE</span>
             <span className="etnBreakingText">
-              Breaking stories, politics, business, sports, cinema and world
-              updates.
+              Market Updates
             </span>
+
+            <div className="etnMarketsLinks">
+              <Link
+                href={ET_NOW_MARKETS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="etnMarketButton etnMarketButtonEt"
+              >
+                ET ↗
+              </Link>
+
+              <Link
+                href={BUSINESS_TODAY_MARKETS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="etnMarketButton etnMarketButtonBt"
+              >
+                BT ↗
+              </Link>
+            </div>
           </div>
 
           <div className="etnTopRight">
             <span className="etnEdition">
-              EDITION: {currentLang.toUpperCase()}
+              {currentLang.toUpperCase()}
             </span>
             <LangSwitcher currentLang={currentLang} />
           </div>
