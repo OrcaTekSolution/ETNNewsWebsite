@@ -14,9 +14,9 @@ type PageProps = {
 
 const TARGET_POSTS = 30;
 
-const HOME_TOP_SLOT = '2057414861';
-const HOME_MID_SLOT = '1310742150';
-const HOME_BOTTOM_SLOT = '4492006510';
+const HOME_TOP_SLOT = '5078396423';
+const HOME_MID_SLOT = '3190599680';
+const HOME_BOTTOM_SLOT = '7335568687';
 
 export default async function Home({ searchParams }: PageProps) {
   const { lang } = await searchParams;

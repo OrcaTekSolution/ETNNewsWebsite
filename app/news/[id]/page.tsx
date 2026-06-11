@@ -17,9 +17,9 @@ type PageProps = {
   searchParams: Promise<{ lang?: string }>;
 };
 
-const ARTICLE_TOP_SLOT = '2139640491';
-const ARTICLE_MID_SLOT = '2496398563';
-const ARTICLE_BOTTOM_SLOT = '2488659709';
+const ARTICLE_TOP_SLOT = '6022487011';
+const ARTICLE_MID_SLOT = '2037839119';
+const ARTICLE_BOTTOM_SLOT = '4569804549';
 
 export async function generateMetadata({
   params,
