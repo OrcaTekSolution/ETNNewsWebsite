@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: 'ETN News',
   description:
     'ETN News website powered by the same ETN admin/backend used by the mobile app.',
+  other: {
+    'google-adsense-account': 'ca-pub-9323009875073275',
+  },
   openGraph: {
     title: 'ETN News',
     description:
