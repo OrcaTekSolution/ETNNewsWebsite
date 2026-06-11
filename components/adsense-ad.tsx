@@ -53,7 +53,7 @@ export default function AdsenseAd({
         ref={adRef}
         className="adsbygoogle"
         style={{ display: 'block' }}
-        data-ad-client="ca-pub-5102546518342948"
+        data-ad-client="ca-pub-9323009875073275"
         data-ad-slot={adSlot}
         data-ad-format={adFormat}
         data-full-width-responsive={fullWidthResponsive ? 'true' : 'false'}
